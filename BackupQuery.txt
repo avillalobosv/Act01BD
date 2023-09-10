@@ -1,0 +1,38 @@
+-- Crear la base de datos
+CREATE DATABASE IF NOT EXISTS Act01;
+USE Act01;
+
+-- tabla Pais
+CREATE TABLE IF NOT EXISTS Pais (
+    codPais INT AUTO_INCREMENT PRIMARY KEY,
+    nombrePais VARCHAR(50) NOT NULL
+);
+
+-- tabla PlanMovil
+CREATE TABLE IF NOT EXISTS PlanMovil (
+    codPlan INT AUTO_INCREMENT PRIMARY KEY,
+    nombrePlan VARCHAR(50) NOT NULL,
+    minutosLibres INT
+);
+
+-- la tabla Cliente
+CREATE TABLE IF NOT EXISTS Cliente (
+    rut VARCHAR(15) PRIMARY KEY,
+    codPlan INT,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    ncelular VARCHAR(15),
+    email VARCHAR(100),
+    FOREIGN KEY (codPlan) REFERENCES PlanMovil(codPlan)
+);
+
+-- tabla Llamada
+CREATE TABLE IF NOT EXISTS Llamada (
+    rut VARCHAR(15),
+    codPais INT,
+    fecha DATE,
+    hora TIME,
+    duracion INT,
+    FOREIGN KEY (rut) REFERENCES Cliente(rut),
+    FOREIGN KEY (codPais) REFERENCES Pais(codPais)
+);
